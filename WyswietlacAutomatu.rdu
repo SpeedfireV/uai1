@@ -8,11 +8,11 @@
 </Widget>
 <Widget id="4" name="CZY WYGRANA LED" type="LED" x="320" y="30" width="50" height="50" text="N/A" textColor="#000000" color="#ffff00">
 </Widget>
-<Widget id="5" name="MONETA WRZUCONA TEXT" type="TEXT_DISPLAY" x="10" y="90" width="110" height="30" text="Display" textColor="#000000" color="#FFFFFF">
+<Widget id="5" name="MONETA WRZUCONA TEXT" type="TEXT_DISPLAY" x="10" y="90" width="110" height="30" text="" textColor="#000000" color="#FFFFFF">
 </Widget>
-<Widget id="6" name="CZY WYGRANA TEXT" type="TEXT_DISPLAY" x="300" y="90" width="90" height="30" text="N/A" textColor="#000000" color="#FFFFFF">
+<Widget id="6" name="CZY WYGRANA TEXT" type="TEXT_DISPLAY" x="300" y="90" width="90" height="30" text="" textColor="#000000" color="#FFFFFF">
 </Widget>
-<Widget id="7" name="STATUS ROZGRYWKI" type="TEXT_DISPLAY" x="130" y="110" width="150" height="110" text="Display" textColor="#000000" color="#FFFFFF">
+<Widget id="7" name="STATUS ROZGRYWKI" type="TEXT_DISPLAY" x="130" y="130" width="150" height="90" text="" textColor="#000000" color="#FFFFFF">
 </Widget>
 <Widget id="8" name="WRZUC PRAWDZIWA" type="BUTTON" x="20" y="130" width="80" height="40" text="Prawdziwa" textColor="#000000" color="#C4EFED">
 <OutputAction messageName="WrzucilemPrawdziwa" data=""></OutputAction>
@@ -20,13 +20,16 @@
 <Widget id="9" name="WRZUC FALSZYWA" type="BUTTON" x="20" y="180" width="80" height="40" text="Fałszywa" textColor="#000000" color="#C4EFED">
 <OutputAction messageName="WrzucilemFalszywa" data=""></OutputAction>
 </Widget>
-<Widget id="11" name="GRAJ" type="BUTTON" x="120" y="240" width="80" height="40" text="Gram" textColor="#000000" color="#C4EFED">
+<Widget id="11" name="GRAJ" type="BUTTON" x="150" y="240" width="110" height="40" text="Gram" textColor="#000000" color="#C4EFED">
+<OutputAction messageName="Gram" data=""></OutputAction>
 </Widget>
-<Widget id="12" name="POWRÓT DO WRZUCANIA" type="BUTTON" x="220" y="240" width="150" height="40" text="Powrot do Wrzucania" textColor="#000000" color="#C4EFED">
-<OutputAction messageName="PowrotDoWrzucania" data=""></OutputAction>
+<Widget id="12" name="POWRÓT DO WRZUCANIA" type="BUTTON" x="300" y="240" width="80" height="40" text="Wycofaj Środki" textColor="#000000" color="#C4EFED">
+<OutputAction messageName="WyplacamSrodki" data=""></OutputAction>
+<OutputAction messageName="ChceWyplacic" data=""></OutputAction>
 </Widget>
 <Widget id="13" name="GRAJ PONOWNIE" type="BUTTON" x="300" y="140" width="80" height="40" text="Gram Ponownie" textColor="#000000" color="#C4EFED">
 <OutputAction messageName="GramPonownie" data=""></OutputAction>
+<OutputAction messageName="ResetujInterfejs" data=""></OutputAction>
 </Widget>
 <Widget id="14" name="ZAKONCZ GRE" type="BUTTON" x="300" y="190" width="80" height="40" text="KONIEC" textColor="#000000" color="#C4EFED">
 <OutputAction messageName="KoniecNaDzis" data=""></OutputAction>
@@ -34,17 +37,103 @@
 </Gui>
 <Trigger messageName="WrzucilemFalszywa">
 <Case caseName="New case">
-<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="red"></GuiAction>
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="RED"></GuiAction>
 </Case>
 </Trigger>
 <Trigger messageName="WrzucilemPrawdziwa">
 <Case caseName="New case">
-<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="green"></GuiAction>
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="GREEN"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY_PARAMETER" value="LOSUJ!"></GuiAction>
 </Case>
 </Trigger>
 <Trigger messageName="Wygrales">
 <Case caseName="New case">
-<GuiAction widgetId="4" actionType="DISPLAY" value="New action"></GuiAction>
+<GuiAction widgetId="4" actionType="CHANGE_COLOR" value="GREEN"></GuiAction>
+<GuiAction widgetId="6" actionType="DISPLAY" value="WYGRAŁEŚ!"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="WYGRAŁEŚ GRĘ!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="Przegrales">
+<Case caseName="New case">
+<GuiAction widgetId="4" actionType="CHANGE_COLOR" value="RED"></GuiAction>
+<GuiAction widgetId="6" actionType="DISPLAY" value="PRZEGRAŁEŚ!"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="PRZEGRAŁEŚ GRĘ!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="WrzucMonete">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="DISPLAY" value="GREEN"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="ResetujInterfejs">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="YELLOW"></GuiAction>
+<GuiAction widgetId="4" actionType="CHANGE_COLOR" value="YELLOW"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę"></GuiAction>
+<GuiAction widgetId="6" actionType="DISPLAY" value="N/A"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Oczekuje Na Monetę"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="ZlaMoneta">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Prawdziwą Monetę!"></GuiAction>
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="RED"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Fałszywa!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="DobraMoneta">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="GREEN"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Przyjęto!"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="Losuj!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="PowrotDoWrzucania">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="YELLOW"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Oczekuje Na Monetę"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="WyplacamSrodki">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="YELLOW"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Oczekuje Na Monetę"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="ChceWyplacic">
+<Case caseName="New case">
+<GuiAction widgetId="2" actionType="CHANGE_COLOR" value="YELLOW"></GuiAction>
+<GuiAction widgetId="6" actionType="DISPLAY" value="Oczekuje na Monetę"></GuiAction>
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="MusiszWrzucicMonete">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę!!!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="DziekujemyZaGre">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="Dziękujemy Za Grę!"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="WlaczAutomat">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="DZIALA LEPIEJ"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="EkranWlaczony">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="Wrzuć Monetę"></GuiAction>
+<GuiAction widgetId="5" actionType="DISPLAY" value="Oczekuje Na Monetę"></GuiAction>
+<GuiAction widgetId="6" actionType="DISPLAY" value="-"></GuiAction>
+</Case>
+</Trigger>
+<Trigger messageName="SystemLosuje">
+<Case caseName="New case">
+<GuiAction widgetId="7" actionType="DISPLAY" value="LOSOWANIE"></GuiAction>
 </Case>
 </Trigger>
 </PrototypingGui>
